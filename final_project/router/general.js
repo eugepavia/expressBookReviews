@@ -4,16 +4,26 @@ let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
-
+// Register new user
 public_users.post("/register", (req,res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if (isValid(username)) {
+        users.push({
+            'username': username,
+            'password': password
+        });
+        return res.status(201).json({message:'User registered successfuly!'})
+    } else {
+        return res.status(404).json({message:'Username already exists'});
+    }
 });
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  return res.status(300).json({message: "List of books here"});
 });
 
 // Get book details based on ISBN

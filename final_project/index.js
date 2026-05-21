@@ -8,10 +8,11 @@ const genl_routes = require('./router/general.js').general;
 const app = express();
 
 let accessKey = process.env.ACCESS_KEY;
+let sessionKey = process.env.SESSION_KEY;
 
 app.use(express.json());
 
-app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
+app.use("/customer",session({secret: sessionKey,resave: true, saveUninitialized: true}))
 
 // Authenticate user based on access token
 app.use("/customer/auth/*", function auth(req,res,next){

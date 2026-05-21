@@ -8,8 +8,16 @@ let accessKey = process.env.ACCESS_KEY;
 
 let users = [];
 
-const isValid = (username)=>{ //returns boolean
-//write code to check is the username is valid
+// Check if new username is valid. Returns boolean
+const isValid = (username)=>{
+    let user = users.filter((user)=>{
+        return (user.username === username);
+    });
+    if (user.length > 0) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 // Check if user and password match the one in the records. Returns boolean
@@ -24,8 +32,6 @@ const authenticatedUser = (username,password)=>{
     }
 }
 
-// Register new user
-
 //Login for registered (authenticated) users
 regd_users.post("/login", (req,res) => {
     const username = req.body.username;
@@ -37,7 +43,7 @@ regd_users.post("/login", (req,res) => {
     }
 
     // In case of authenticated user
-    if (authenticatedUser) {
+    if (authenticatedUser(username,password)) {
         // Create access token
         let accessToken = jwt.sign({data:password},accessKey,{expiresIn: 60 * 60});
 
