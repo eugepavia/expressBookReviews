@@ -1,8 +1,12 @@
 const express = require('express');
+const axios = require('axios');
+const dotenv = require('dotenv').config();
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
+
+let url = process.env.URL;
 
 // Register new user
 public_users.post("/register", (req,res) => {
@@ -27,8 +31,13 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
-  return res.status(300).send(JSON.stringify(books));
+public_users.get('/books', async function (req, res) {
+    try {
+        let result = await axios.get(URL);
+        return res.status(200).send(JSON.stringify(result));
+    } catch(err) {
+        return res.status(500).json({message:'Ups, something went wrong'});
+    }
 });
 
 // Get book details based on ISBN (key considered as ISBN for display purposes)

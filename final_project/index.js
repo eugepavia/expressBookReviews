@@ -9,6 +9,7 @@ const app = express();
 
 let accessKey = process.env.ACCESS_KEY;
 let sessionKey = process.env.SESSION_KEY;
+let port = process.env.PORT;
 
 app.use(express.json());
 
@@ -33,9 +34,8 @@ app.use("/customer/auth/*", function auth(req,res,next){
     }
 });
  
-const PORT =5000;
 
 app.use("/customer", customer_routes);
 app.use("/", genl_routes);
 
-app.listen(PORT,()=>console.log("Server is running"));
+app.listen(port,()=>console.log("Server is running"));
