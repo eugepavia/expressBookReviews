@@ -12,4 +12,4 @@ GET '/title/:title'         Get book details based on title
 GET '/review/:isbn'         Get book reviwe
 
 ### Login needed
-PUT '/auth/review/:isbn'    Add book review
+PUT '/customer/auth/review/:isbn'    Add book review
