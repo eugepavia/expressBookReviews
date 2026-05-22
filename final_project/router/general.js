@@ -9,6 +9,12 @@ public_users.post("/register", (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
 
+    // In case of missing data
+    if (!username || !password) {
+        return res.status(404).json({message: 'Missing username and/or password'})
+    }
+
+    // Check for valid username (if not repeated)
     if (isValid(username)) {
         users.push({
             'username': username,
