@@ -57,13 +57,26 @@ regd_users.post("/login", (req,res) => {
 
 });
 
-// Add a book review
+// Add or modify a book review (only one per book per user)
 regd_users.put("/auth/review/:isbn", (req, res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
+    const isbn = req.params.isbn;
+    const username = req.session.authorization['username'];
+    let review = req.body.review;
+    let book = books[isbn]
 
-// Modify book review
+    // Check if book is available
+    if (book) {
+        // Check if user entered a new review
+        if (review) {
+                book.reviews[username] = review;
+                return res.status(201).send(JSON.stringify(book.reviews));
+        } else {
+            return res.status(400).json({message: "Missing review"});
+        }
+    } else {
+        return res.status(404).json({message: "Book not found"});
+    }
+});
 
 // Delete book review
 
