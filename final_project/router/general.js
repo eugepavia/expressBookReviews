@@ -25,10 +25,15 @@ public_users.get('/',function (req, res) {
   return res.status(300).send(JSON.stringify(books));
 });
 
-// Get book details based on ISBN
+// Get book details based on ISBN (key considered as ISBN for display purposes)
 public_users.get('/isbn/:isbn',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const isbn = req.params.isbn;
+    let book = books[isbn]
+    if (book) {
+        return res.status(200).send(JSON.stringify(book));
+    } else {
+        return res.status(404).json({message: "Book not found"});
+    }
  });
   
 // Get book details based on author
