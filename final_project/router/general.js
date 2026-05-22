@@ -55,17 +55,22 @@ public_users.get('/isbn/:isbn',async function (req, res) {
 });
   
 // Get book details based on author
-public_users.get('/author/:author',function (req, res) {
-    const author = req.params.author;
-    let result = Object.values(books).filter((book)=>{
-        return (book.author.toLocaleLowerCase().includes(author.toLocaleLowerCase()));
-    });
-
-    if (result.length > 0) {
-        return res.status(200).send(JSON.stringify(result));
-    } else {
-        return res.status(404).json({message: "Author not found"});
-    }
+public_users.get('/author/:author',async function (req, res) {
+    try {
+        const author = req.params.author;
+        const response = await Promise.resolve(
+            Object.values(books).filter((book)=>{
+                return (book.author.toLowerCase().includes(author.toLocaleLowerCase()));
+            })
+        );
+        if (response.length > 0) {
+            return res.status(200).send(JSON.stringify(response));
+        } else {
+            return res.status(404).json({message: "Author not found"});
+        }
+    } catch (err) {
+        return res.status(500).json({message:'Ups, something went wrong'});
+    }    
 });
 
 // Get all books based on title
