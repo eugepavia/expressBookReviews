@@ -63,6 +63,10 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   return res.status(300).json({message: "Yet to be implemented"});
 });
 
+// Modify book review
+
+// Delete book review
+
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
 module.exports.users = users;
