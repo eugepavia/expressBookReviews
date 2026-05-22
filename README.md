@@ -7,7 +7,7 @@
 |:------:|:-----------------|:-----------------------------------|
 |POST    | /register        | Register user                      |
 |POST    | /customer/login  | Login user                         |
-|GET     | /                | Get book list                      |
+|GET     | /books           | Get book list                      |
 |GET     | /isbn/:isbn      | Get book details based on ISBN     |
 |GET     | /author/:author' | Get book details based on author   |
 |GET     | /title/:title    | Get book details based on title    |

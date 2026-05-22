@@ -1,5 +1,4 @@
 const express = require('express');
-const axios = require('axios');
 const dotenv = require('dotenv').config();
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
@@ -33,9 +32,9 @@ public_users.post("/register", (req,res) => {
 // Get the book list available in the shop
 public_users.get('/books', async function (req, res) {
     try {
-        let result = await axios.get(URL);
-        return res.status(200).send(JSON.stringify(result));
-    } catch(err) {
+        const response = await Promise.resolve(books);
+        return res.status(200).send(JSON.stringify(response))
+    } catch (error) {
         return res.status(500).json({message:'Ups, something went wrong'});
     }
 });
