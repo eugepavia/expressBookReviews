@@ -22,5 +22,4 @@ PUT '/customer/auth/review/:isbn'    Add book review
 |DELETE     | /customer/auth/review/:isbn  | Delete review (user owned only)          |
 
 ### To improve
-* Make branch with axios instead of async/await
-* Change send(JSON.stringify(response)) for just json(response)
+* Change auth_users.router to router-controller-service structure
