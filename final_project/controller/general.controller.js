@@ -18,20 +18,17 @@ const registerUser = async (req,res) => {
     }
 }
 
-/*
 // Get the book list available in the shop
-const getBooks = async (req,res,next) => {
+const getBooks = async (req,res) => {
     try {
-        const response = await Promise.resolve(books);
-        return res.status(200).send(JSON.stringify(response))
+        let response = await generalService.getBooks();
+        return res.status(response.status).send(response.data);
     } catch (err) {
         return res.status(500).json({message:'Ups, something went wrong'});
     }
 }
-*/
-
-
 
 module.exports = {
-    registerUser
+    registerUser,
+    getBooks
 }

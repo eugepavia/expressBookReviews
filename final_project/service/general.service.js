@@ -1,4 +1,5 @@
 const express = require('express');
+const books = require('../router/booksdb.js');
 const dotenv = require('dotenv').config();
 let isValid = require("../router/auth_users.router.js").isValid;
 let users = require("../router/auth_users.router.js").users;
@@ -24,22 +25,12 @@ const registerUser = (username,password) => {
     }
 }
 
-/*
 // Get the book list available in the shop
-const getBooks = async () => {
-    const response = await axios.get(URL+'/books')
-        .then(res => {
-            return 
-        });
-    return response.data;
+const getBooks = () => {
+    return ({status:200,data:books});
 }
 
-
-
-        const response = await Promise.resolve(books);
-*/
-
-
 module.exports = {
-    registerUser
+    registerUser,
+    getBooks
 }

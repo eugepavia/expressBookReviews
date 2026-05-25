@@ -9,17 +9,10 @@ const public_users = express.Router();
 let url = process.env.URL;
 
 // Register new user
-public_users.post("/register",generalController.registerUser);
+public_users.post('/register',generalController.registerUser);
 
 // Get the book list available in the shop
-public_users.get('/books', async function (req, res) {
-    try {
-        const response = await Promise.resolve(books);
-        return res.status(200).send(JSON.stringify(response))
-    } catch (err) {
-        return res.status(500).json({message:'Ups, something went wrong'});
-    }
-});
+public_users.get('/books',generalController.getBooks);
 
 // Get book details based on ISBN (key considered as ISBN for display purposes)
 public_users.get('/isbn/:isbn',async function (req, res) {
