@@ -24,14 +24,6 @@ public_users.get('/author/:author',generalController.getByAuthor);
 public_users.get('/title/:title',generalController.getByTitle);
 
 // Get book review based on ISBN
-public_users.get('/review/:isbn',function (req, res) {
-    const isbn = req.params.isbn;
-    let result = books[isbn]
-    if (result) {
-        return res.status(200).send(JSON.stringify(result.reviews));
-    } else {
-        return res.status(404).json({message: "Book not found"});
-    }
-});
+public_users.get('/review/:isbn',generalController.getReview);
 
 module.exports.general = public_users;

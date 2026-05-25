@@ -45,7 +45,7 @@ const getBooks = async (req,res) => {
  const getByAuthor = async (req,res) => {
     try {
         const author = req.params.author;
-        const response = await generalService.getByAuthor(author);
+        let response = await generalService.getByAuthor(author);
         return res.status(response.status).json(response.data || {message:response.message});
     } catch (err) {
         return res.status(generalError.status).json({message:generalError.message});
@@ -56,17 +56,26 @@ const getBooks = async (req,res) => {
 const getByTitle = async (req, res) => {
     try {
         const title = req.params.title;
-        const response = await generalService.getByTitle(title);
+        let response = await generalService.getByTitle(title);
         return res.status(response.status).json(response.data || {message:response.message});
     } catch (err) {
         return res.status(generalError.status).json({message:generalError.message});
     }   
 };
 
+// Get book review based on ISBN
+const getReview = async (req, res) => {
+    const isbn = req.params.isbn;
+    let response = generalService.getReview(isbn);
+    return res.status(response.status).json(response.data || {message:response.message});
+};
+
+
 module.exports = {
     registerUser,
     getBooks,
     getByIsbn,
     getByAuthor,
-    getByTitle
+    getByTitle,
+    getReview
 }

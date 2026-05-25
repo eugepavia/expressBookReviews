@@ -32,8 +32,9 @@ const getBooks = () => {
 
 // Get book details based on ISBN (key considered as ISBN for demo purposes)
 const getByIsbn = (isbn) => {
-    if (books[isbn]) {
-        return ({status:200,message:null,data:books[isbn]});
+    const result = books[isbn];
+    if (result) {
+        return ({status:200,message:null,data:result});
     } else {
         return ({status:404,message:'Book not found',data:null});
     }
@@ -63,11 +64,26 @@ const getByTitle = (title) => {
     }
 };
         
+// Get book review based on ISBN
+const getReview = (isbn) => {
+    const result = books[isbn];
+    if (result) {
+        if (Object.keys(result.reviews).length > 0) {
+            return ({status:200,message:null,data:result.reviews});
+        } else {
+            return ({status:200,message:'This book has no reviews yet',data:null});
+        }
+    } else {
+        return ({status:404,message:'Book not found',data:null});
+    }
+};
+
 
 module.exports = {
     registerUser,
     getBooks,
     getByIsbn,
     getByAuthor,
-    getByTitle
+    getByTitle,
+    getReview
 }
