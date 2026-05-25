@@ -1,33 +1,15 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
 let books = require("./booksdb.js");
-let isValid = require("./auth_users.js").isValid;
-let users = require("./auth_users.js").users;
+let isValid = require("./auth_users.router.js").isValid;
+let users = require("./auth_users.router.js").users;
+let generalController = require('../controller/general.controller.js');
 const public_users = express.Router();
 
 let url = process.env.URL;
 
 // Register new user
-public_users.post("/register", (req,res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-
-    // In case of missing data
-    if (!username || !password) {
-        return res.status(404).json({message: 'Missing username and/or password'})
-    }
-
-    // Check for valid username (if not repeated)
-    if (isValid(username)) {
-        users.push({
-            'username': username,
-            'password': password
-        });
-        return res.status(201).json({message:'User registered successfuly!'})
-    } else {
-        return res.status(404).json({message:'Username already exists'});
-    }
-});
+public_users.post("/register",generalController.registerUser);
 
 // Get the book list available in the shop
 public_users.get('/books', async function (req, res) {
