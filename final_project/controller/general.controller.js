@@ -41,8 +41,22 @@ const getBooks = async (req,res) => {
     }
  }
 
+ // Get book details based on author
+ const getByAuthor = async (req,res) => {
+    try {
+        const author = req.params.author;
+        const response = await generalService.getByAuthor(author);
+        return res.status(response.status).json(response.data || {message:response.message});
+    } catch (err) {
+        return res.status(generalError.status).json({message:generalError.message});
+    }
+ }
+
+
+
 module.exports = {
     registerUser,
     getBooks,
-    getByIsbn
+    getByIsbn,
+    getByAuthor
 }

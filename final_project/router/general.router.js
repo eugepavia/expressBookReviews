@@ -18,23 +18,7 @@ public_users.get('/books',generalController.getBooks);
 public_users.get('/isbn/:isbn',generalController.getByIsbn);
   
 // Get book details based on author
-public_users.get('/author/:author',async function (req, res) {
-    try {
-        const author = req.params.author;
-        const response = await Promise.resolve(
-            Object.values(books).filter((book)=>{
-                return (book.author.toLowerCase().includes(author.toLocaleLowerCase()));
-            })
-        );
-        if (response.length > 0) {
-            return res.status(200).send(JSON.stringify(response));
-        } else {
-            return res.status(404).json({message: "Author not found"});
-        }
-    } catch (err) {
-        return res.status(500).json({message:'Ups, something went wrong'});
-    }    
-});
+public_users.get('/author/:author',generalController.getByAuthor);
 
 // Get all books based on title
 public_users.get('/title/:title',async function (req, res) {
