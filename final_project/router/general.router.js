@@ -14,20 +14,8 @@ public_users.post('/register',generalController.registerUser);
 // Get the book list available in the shop
 public_users.get('/books',generalController.getBooks);
 
-// Get book details based on ISBN (key considered as ISBN for display purposes)
-public_users.get('/isbn/:isbn',async function (req, res) {
-    try {
-        const isbn = req.params.isbn;
-        const response = await Promise.resolve(books[isbn]);
-        if (response) {
-        return res.status(200).send(JSON.stringify(response));
-        } else {
-            return res.status(404).json({message: "Book not found"});
-        }
-    } catch (err) {
-        return res.status(500).json({message:'Ups, something went wrong'});
-    }
-});
+// Get book details based on ISBN (key considered as ISBN for demo purposes)
+public_users.get('/isbn/:isbn',generalController.getByIsbn);
   
 // Get book details based on author
 public_users.get('/author/:author',async function (req, res) {

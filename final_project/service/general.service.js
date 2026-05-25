@@ -30,7 +30,18 @@ const getBooks = () => {
     return ({status:200,data:books});
 }
 
+// Get book details based on ISBN (key considered as ISBN for demo purposes)
+const getByIsbn = (isbn) => {
+    if (books[isbn]) {
+        return ({status:200,message:null,data:books[isbn]});
+    } else {
+        return ({status:404,message:'Book not found',data:null});
+    }
+}
+        
+
 module.exports = {
     registerUser,
-    getBooks
+    getBooks,
+    getByIsbn
 }
