@@ -52,11 +52,21 @@ const getBooks = async (req,res) => {
     }
  }
 
-
+// Get all books based on title
+const getByTitle = async (req, res) => {
+    try {
+        const title = req.params.title;
+        const response = await generalService.getByTitle(title);
+        return res.status(response.status).json(response.data || {message:response.message});
+    } catch (err) {
+        return res.status(generalError.status).json({message:generalError.message});
+    }   
+};
 
 module.exports = {
     registerUser,
     getBooks,
     getByIsbn,
-    getByAuthor
+    getByAuthor,
+    getByTitle
 }

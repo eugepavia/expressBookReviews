@@ -21,23 +21,7 @@ public_users.get('/isbn/:isbn',generalController.getByIsbn);
 public_users.get('/author/:author',generalController.getByAuthor);
 
 // Get all books based on title
-public_users.get('/title/:title',async function (req, res) {
-    try {
-        const title = req.params.title;
-        const response = await Promise.resolve(
-            Object.values(books).filter((book)=>{
-                return (book.title.toLowerCase().includes(title.toLowerCase()));
-            })
-        );
-        if (response.length > 0) {
-            return res.status(200).send(JSON.stringify(response));
-        } else {
-            return res.status(404).json({message: "Title not found"});
-        }
-    } catch (err) {
-        return res.status(500).json({message:'Ups, something went wrong'});
-    }   
-});
+public_users.get('/title/:title',generalController.getByTitle);
 
 // Get book review based on ISBN
 public_users.get('/review/:isbn',function (req, res) {

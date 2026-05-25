@@ -39,22 +39,35 @@ const getByIsbn = (isbn) => {
     }
 }
 
- // Get book details based on author
- const getByAuthor = (author) => {
+// Get book details based on author
+const getByAuthor = (author) => {
     let result = Object.values(books).filter((book)=>{
-        return (book.author.toLowerCase().includes(author.toLocaleLowerCase()));
+        return (book.author.toLowerCase().includes(author.toLowerCase()));
     })
     if (result.length > 0) {
         return ({status:200,message:null,data:result});
     } else {
         return ({status:404,message:'Author not found',data:null});
     }
- }
+}
+
+// Get all books based on title
+const getByTitle = (title) => {
+    let result = Object.values(books).filter((book)=>{
+        return (book.title.toLowerCase().includes(title.toLowerCase()));
+    });
+    if (result.length > 0) {
+        return ({status:200,message:null,data:result});
+    } else {
+        return ({status:404,message:'Title not found',data:null});
+    }
+};
         
 
 module.exports = {
     registerUser,
     getBooks,
     getByIsbn,
-    getByAuthor
+    getByAuthor,
+    getByTitle
 }
