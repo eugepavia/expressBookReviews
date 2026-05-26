@@ -73,9 +73,7 @@ const addReview = (isbn,username,review) => {
 };
 
 // Delete a book review (only the corresponding to logged user)
-regd_users.delete("/auth/review/:isbn", (req, res) => {
-    const isbn = req.params.isbn;
-    const username = req.session.authorization['username'];
+const deleteReview = (isbn,username) => {
     let book = books[isbn]
 
     // Check if book is available
@@ -83,13 +81,22 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
         // Check if user has a review to delete
         if (book.reviews[username]) {
                 delete book.reviews[username]
+                return ({status:400,message:'Missing review'});
                 return res.status(200).json({message: "Review deleted!"});
         } else {
+            return ({status:400,message:'Missing review'});
             return res.status(400).json({message: "There is no review to delete"});
         }
     } else {
+        return ({status:400,message:'Missing review'});
         return res.status(404).json({message: "Book not found"});
     }
-});
+}
+
 
 module.exports.isValid = isValid;
+module.exports = {
+    loginUser,
+    addReview,
+    deleteReview
+}
