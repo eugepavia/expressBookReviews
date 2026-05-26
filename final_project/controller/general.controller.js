@@ -1,9 +1,5 @@
 const express = require('express');
-const dotenv = require('dotenv').config();
-let books = require("../router/booksdb.js");
-let isValid = require("../router/auth_users.router.js").isValid;
-let users = require("../router/auth_users.router.js").users;
-let generalService = require("../service/general.service.js");
+const generalService = require('../service/general.service.js');
 
 const generalError = {status:500,message:'Ups, something went wrong'};
 

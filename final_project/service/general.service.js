@@ -1,10 +1,9 @@
 const express = require('express');
-const books = require('../router/booksdb.js');
-const dotenv = require('dotenv').config();
-let isValid = require("../router/auth_users.router.js").isValid;
-let users = require("../router/auth_users.router.js").users;
+const books = require('../database/booksdb.js');
+let users = require("../database/usersdb.js");
+let isValid = require("../service/auth_users.service.js").isValid;
 
-let url = process.env.URL;
+
 
 // Register new user
 const registerUser = (username,password) => {
