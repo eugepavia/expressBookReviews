@@ -7,8 +7,6 @@ let isValid = require("./auth_users.service.js").isValid;
 
 // Register new user
 const registerUser = (username,password) => {
-    console.log('Entered service');
-    console.log('Users before = '+users);
     // In case of missing data
     if (!username || !password) {
         return ({status:400,message:'Missing username and/or password'});

@@ -9,11 +9,9 @@ let accessKey = process.env.ACCESS_KEY;
 
 // Check if new username is valid. Returns boolean
 const isValid = (username)=>{
-    console.log('Checking if valid');
     let user = users.filter((user)=>{
         return (user.username === username);
     });
-    console.log('User coincidence = '+user);
     if (user.length > 0) {
         return false;
     } else {
@@ -93,8 +91,8 @@ const deleteReview = (isbn,username) => {
 }
 
 
-module.exports.isValid = isValid;
 module.exports = {
+    isValid,
     loginUser,
     addReview,
     deleteReview
