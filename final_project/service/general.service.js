@@ -1,4 +1,3 @@
-const express = require('express');
 const books = require('../database/booksdb.js');
 let users = require("../database/usersdb.js");
 let isValid = require("./auth_users.service.js").isValid;

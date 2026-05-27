@@ -1,4 +1,3 @@
-const express = require('express');
 const generalService = require('../service/general.service.js');
 
 const generalError = {status:500,message:'Ups, something went wrong'};

@@ -1,4 +1,3 @@
-const express = require('express');
 const authService = require('../service/auth_users.service.js');
 
 const generalError = {status:500,message:'Ups, something went wrong'};
