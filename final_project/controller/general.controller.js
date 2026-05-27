@@ -3,6 +3,7 @@ const generalService = require('../service/general.service.js');
 
 const generalError = {status:500,message:'Ups, something went wrong'};
 
+
 // Register new user
 const registerUser = async (req,res) => {
     try {

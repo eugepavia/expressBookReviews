@@ -2,16 +2,18 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
 const books = require('../database/booksdb.js');
-const users = require('../database/usersdb.js');
+let users = require('../database/usersdb.js');
 
 
 let accessKey = process.env.ACCESS_KEY;
 
 // Check if new username is valid. Returns boolean
 const isValid = (username)=>{
+    console.log('Checking if valid');
     let user = users.filter((user)=>{
         return (user.username === username);
     });
+    console.log('User coincidence = '+user);
     if (user.length > 0) {
         return false;
     } else {
@@ -81,15 +83,12 @@ const deleteReview = (isbn,username) => {
         // Check if user has a review to delete
         if (book.reviews[username]) {
                 delete book.reviews[username]
-                return ({status:400,message:'Missing review'});
-                return res.status(200).json({message: "Review deleted!"});
+                return ({status:200,message:'Review deleted!'});
         } else {
-            return ({status:400,message:'Missing review'});
-            return res.status(400).json({message: "There is no review to delete"});
+            return ({status:400,message:'There is no review on this book to delete'});
         }
     } else {
-        return ({status:400,message:'Missing review'});
-        return res.status(404).json({message: "Book not found"});
+        return ({status:404,message:'Book not found'});
     }
 }
 
