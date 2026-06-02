@@ -3,4 +3,4 @@ node_modules
 
 # Environment keys
 .env
-
+cookies.txt
