@@ -14,7 +14,7 @@ public_users.post("/register", (req,res) => {
 
     // In case of missing data
     if (!username || !password) {
-        return res.status(404).json({message: 'Missing username and/or password'})
+        return res.status(400).json({message: 'Missing username and/or password'})
     }
 
     // Check for valid username (if not repeated)
@@ -25,12 +25,12 @@ public_users.post("/register", (req,res) => {
         });
         return res.status(201).json({message:'User registered successfuly!'})
     } else {
-        return res.status(404).json({message:'Username already exists'});
+        return res.status(409).json({message:'Username already exists'});
     }
 });
 
 // Get the book list available in the shop
-public_users.get('/books', async function (req, res) {
+public_users.get('/', async function (req, res) {
     try {
         const response = await Promise.resolve(books);
         return res.status(200).send(JSON.stringify(response))
@@ -60,7 +60,7 @@ public_users.get('/author/:author',async function (req, res) {
         const author = req.params.author;
         const response = await Promise.resolve(
             Object.values(books).filter((book)=>{
-                return (book.author.toLowerCase().includes(author.toLocaleLowerCase()));
+                return (book.author.toLowerCase().includes(author.toLowerCase()));
             })
         );
         if (response.length > 0) {
