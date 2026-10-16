@@ -23,7 +23,7 @@ const registerUser = (username,password) => {
     }
 }
 
-// Get the book list available in the shop
+// Get the list of all books available
 const getBooks = () => {
     return ({status:200,data:books});
 }
