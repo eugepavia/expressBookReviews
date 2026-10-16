@@ -5,6 +5,7 @@ let users = require('../database/usersdb.js');
 
 
 let accessKey = process.env.ACCESS_KEY;
+let expiration = process.env.EXPIRATION_TIME;
 
 // Check if new username is valid. Returns boolean
 const isValid = (username)=>{
@@ -34,13 +35,13 @@ const authenticatedUser = (username,password)=>{
 const loginUser = (username,password) => {
     // In case of missing data
     if (!username || !password) {
-        return ({status:404,message:'Missing username and/or password'});
+        return ({status:400,message:'Missing username and/or password'});
     }
 
     // In case of authenticated user
     if (authenticatedUser(username,password)) {
         // Create access token
-        let accessToken = jwt.sign({data:password},accessKey,{expiresIn: 60 * 60});
+        let accessToken = jwt.sign({data:password},accessKey,{expiresIn: expiration});
 
         return ({
             status:200,
