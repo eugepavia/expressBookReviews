@@ -1,0 +1,254 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0",
+    "title": "Book Reviews App",
+    "description": "Express.js aplication for reviewing books"
+  },
+  "host": "localhost:5500",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/customer/login": {
+      "post": {
+        "summary": "Login for registered users",
+        "description": "Allows access only to authenticated users.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":"Your are logged in!"
+          },
+          "400": {
+            "description": "Bad Request: Missing username and/or password"
+          },
+          "401": {
+            "description": "Unauthorized: Invalid username and/or password"
+          }
+        }
+      }
+    },
+    "/customer/auth/review/{isbn}": {
+      "put": {
+        "security": {
+          "bearerAuth":[]
+        },
+        "summary": "Add or modify a book review",
+        "description":"The user is allowed to write only one review per book. they must be logged in.",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "review": {
+                  "example": "Your review here"
+                }
+              }
+            }
+          }
+        ],
+        "201":{
+            "description":""
+          },
+        "responses": {
+          "400": {
+            "description": "Bad Request: Missing review"
+          },
+          "404": {
+            "description": "Not Found: Book not found"
+          }
+        }
+      },
+      "delete": {
+        "security": {
+          "bearerAuth":[]
+        },
+        "summary": "Delete a book review",
+        "description": "The user is allowed to delete only their own review. They must be logged in.",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":"Review deleted!"
+          },
+          "400": {
+            "description": "Bad Request: There is no review on this book to delete"
+          },
+          "404": {
+            "description": "Not Found: Book not found"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary":"Register a new user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":"USer registered successfully!"
+          },
+          "409": {
+            "description": "Conflict: Username already exists"
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "summary":"Shows list of all books registered",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/isbn/{isbn}": {
+      "get": {
+        "summary":"Get book details based on ISBN",
+        "description": "Book key (ID) considered as ISBN for demo purposes.",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":""
+          },
+          "404": {
+            "description": "Not Found: Book not found"
+          }
+        }
+      }
+    },
+    "/author/{author}": {
+      "get": {
+        "summary":"Get book details based on author",
+        "description": "Case insensitive",
+        "parameters": [
+          {
+            "name": "author",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":""
+          },
+          "404": {
+            "description": "Not Found: Author not found"
+          }
+        }
+      }
+    },
+    "/title/{title}": {
+      "get": {
+        "summary":"Get book details based on title",
+        "description": "Case insensitive",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":""
+          },
+          "404": {
+            "description": "Not Found: Title not found"
+          }
+        }
+      }
+    },
+    "/review/{isbn}": {
+      "get": {
+        "summary":"Get book reviews based on ISBN",
+        "description": "",
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":""
+          },
+          "404": {
+            "description": "Not Found: Book not found"
+          }
+        }
+      }
+    }
+  }
+}

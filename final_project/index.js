@@ -7,6 +7,9 @@ const genl_routes = require('./router/general.router.js').general;
 
 const app = express();
 
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocs = require('./swagger.json');
+
 let accessKey = process.env.ACCESS_KEY;
 let sessionKey = process.env.SESSION_KEY;
 let port = process.env.PORT;
@@ -34,7 +37,7 @@ app.use("/customer/auth/*", function auth(req,res,next){
     }
 });
  
-
+app.use("/doc",swaggerUI.serve,swaggerUI.setup(swaggerDocs));
 app.use("/customer", customer_routes);
 app.use("/", genl_routes);
 
