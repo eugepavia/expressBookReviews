@@ -1,0 +1,15 @@
+# Environment
+.env
+
+# Documentation
+swagger.js
+
+# Modules
+/node_modules
+
+# Frontend
+/public
+instructions.md
+
+
+
